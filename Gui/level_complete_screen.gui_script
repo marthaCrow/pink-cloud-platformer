@@ -1,0 +1,65 @@
+-- used for the pause function
+local pause = require "scripts.pause" 
+
+-- calculates the grade
+local function calc_grade(self, score)
+	print(pause.max_score)
+	if pause.max_score == score then 
+		self.grade = 'A+'
+	elseif pause.max_score * 0.9 <= score then 
+		self.grade = 'A'
+	elseif pause.max_score * 0.8 <= score then 
+		self.grade = 'B'
+	elseif pause.max_score * 0.6 <= score then 
+		self.grade = 'C'
+	elseif pause.max_score * 0.4 <= score then 
+		self.grade = 'D'
+	elseif 100 <= score then 
+		self.grade = 'E'
+	elseif 100 > score then 
+		self.grade = 'F'
+	end
+end
+
+function init(self)
+	-- hides the node on initialization
+	gui.set_enabled(gui.get_node("root"), false)
+	self.score_node = gui.get_node('score')
+	self.grade_node = gui.get_node('grade')
+	self.score = 0
+	self.grade =''
+	msg.post('/level2', 'disable')
+end
+
+function on_message(self, message_id, message, sender)
+	-- shows the level complete on the screen
+	if message_id == hash('show complete') then
+		gui.set_enabled(gui.get_node("root"), true)
+		msg.post('.', 'acquire_input_focus')
+		-- plays sound effect
+		msg.post("main:/soundtrack", 'short mute',{mute_time = 3})
+		sound.play('/sound_effects#level complete')
+	end
+	-- receives the score and calculates the grade then sets them on the screen
+	if message_id == hash('receive data') then
+		-- sets the score
+		self.score = message.score
+		gui.set_text(self.score_node, 'score : ' .. self.score)
+		-- sets the grade
+		calc_grade(self,self.score)
+		gui.set_text(self.grade_node, 'Grade : ' .. self.grade)
+	end
+	
+end
+
+function on_input(self, action_id, action)
+	-- restarts the game
+	if action_id == hash('touch') and gui.pick_node(gui.get_node('replay'), action.x, action.y) then
+		pause.set_pause(not pause.is_paused)
+		
+		msg.post("main:/controller", 'replay level')
+		-- plays the menu
+	elseif action_id == hash('touch') and gui.pick_node(gui.get_node('menu'), action.x, action.y) then
+		msg.post("main:/controller", 'play menu')
+	end
+end

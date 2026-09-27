@@ -1,0 +1,54 @@
+-- all the tiles that are ground IDs
+local GROUND_TILES = {4,5,6,7,8,9,10,23,24,25,30,31,21}
+-- coordinates on the tilemap of ground tiles
+local ground_pos = {}
+-- power up IDs
+local POWER_UPS = {1,34,66}
+
+local function get_random_ground_pos()
+	-- gets a random tile with ground
+	local index = math.random(1,#ground_pos)
+	return ground_pos[index]
+end
+
+local function spawn_power_up()
+	print('h')
+	-- this will be random tile on which the player will spawn on 
+	local ground_tile = get_random_ground_pos()
+
+	-- Spawn the power-up game object at the world position
+
+	local power_up_num = math.random(1,3)
+	tilemap.set_tile('/level1#level1_TM', 'power ups', ground_tile.x, (ground_tile.y + 1), POWER_UPS[power_up_num])
+end
+
+function init(self)
+	-- background color
+	msg.post("@render:", "clear_color", { color = vmath.vector4(255/255, 223.5/255, 205/255, 1) } )
+	-- gets the bounds of the tilemap
+	local tilemap_x, tilemap_y, tilemap_w, tilemap_h = tilemap.get_bounds('/level1#level1_TM')
+
+	-- this loops through every tile to check if it is ground
+	for y = tilemap_y, tilemap_y + tilemap_h - 1 do
+		for x = tilemap_x, tilemap_x + tilemap_w - 1 do
+			local tile = tilemap.get_tile('/level1#level1_TM', 'ground', x, y)
+			for _, ground_ID in ipairs(GROUND_TILES) do 
+				-- if it is ground the position will be added to the array
+				if tile == ground_ID then
+					table.insert(ground_pos, vmath.vector3(x, y, 0))
+				end
+			end
+		end
+	end
+	-- creae a randm selection 
+	math.randomseed(os.time())
+	math.random()
+	spawn_power_up()
+
+end
+function on_message(self, message_id, message)
+	if message_id == hash('spawn power up') then
+		spawn_power_up() 
+		
+	end
+end

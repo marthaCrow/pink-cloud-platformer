@@ -1,0 +1,60 @@
+script: "/Gui/game_over.gui_script"
+fonts {
+  name: "num"
+  font: "/other/font/num.font"
+}
+nodes {
+  position {
+    x: 480.0
+    y: 483.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "Game Over"
+  font: "num"
+  id: "title"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 480.0
+    y: 290.0
+  }
+  scale {
+    x: 0.7
+    y: 0.7
+  }
+  size {
+    x: 550.0
+    y: 120.0
+  }
+  type: TYPE_TEXT
+  text: "restart"
+  font: "num"
+  id: "restart"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 480.0
+    y: 113.0
+  }
+  scale {
+    x: 0.7
+    y: 0.7
+  }
+  size {
+    x: 400.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "menu"
+  font: "num"
+  id: "menu"
+  inherit_alpha: true
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

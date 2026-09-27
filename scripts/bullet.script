@@ -1,0 +1,59 @@
+-- used for the pause function
+local pause = require "scripts.pause" 
+
+function init(self)
+	self.speed = 300
+	self.direction = nil
+	-- bulets position
+	self.bullet_pos =go.get_position()
+end
+
+function update(self, dt)
+	
+	if pause.is_paused then
+		-- Skip updating the game object logic if paused
+		return
+	end
+	-- characters position
+	local pos_character = go.get_position('/character')
+	-- checks if the bullet is on screen
+	if self.bullet_pos.y > 0 then
+		-- if yes then moves the bullet
+		self.bullet_pos.x = self.bullet_pos.x + self.speed * self.direction * dt 
+
+		-- if the bullet is off the screen, reloads it behind the screen
+		if self.bullet_pos.x > (pos_character.x + 200) or self.bullet_pos.x < (pos_character.x - 150) then 
+
+			self.bullet_pos.y = -200
+			msg.post('/character', 'reload_bullet')
+		end
+		go.set_position(self.bullet_pos)
+	end
+end
+
+function on_message(self, message_id, message, sender)
+
+	-- if the bullet is fired
+	if message_id == hash('shooting direction') then
+		-- sets the bullets position on the player
+		self.bullet_pos = go.get_position('/character')
+		self.bullet_pos.y = self.bullet_pos.y - 6
+		go.set_position(self.bullet_pos)
+		-- clarifies the direction the bullet will fly
+
+		self.direction = (message.direction >= 0) and 1 or -1
+		-- flips the bullet depnding on the direction
+		sprite.set_hflip("#sprite", self.direction == -1)
+	end
+	-- if the bullet interacts with ground or enemies it gets reloaded 
+	if message_id == hash('contact_point_response') then 
+		-- removes from screen
+		self.bullet_pos.y = -200
+		go.set_position(self.bullet_pos)
+		msg.post('/character', 'reload_bullet')
+		if message.other_group == hash("Mob") then
+		
+			msg.post('/gui', 'score update', {score = 4})
+		end
+	end
+end

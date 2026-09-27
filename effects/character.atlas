@@ -1,0 +1,202 @@
+images {
+  image: "/effects/pics/enemies sprites/jet 1.png"
+}
+images {
+  image: "/effects/pics/enemies sprites/jet 2.png"
+}
+animations {
+  id: "idle"
+  images {
+    image: "/effects/pics/character/idle.png"
+  }
+  playback: PLAYBACK_LOOP_PINGPONG
+  fps: 10
+}
+animations {
+  id: "left"
+  images {
+    image: "/effects/pics/character/Left 1.png"
+  }
+  images {
+    image: "/effects/pics/character/Left 2.png"
+  }
+  images {
+    image: "/effects/pics/character/Left 3.png"
+  }
+  playback: PLAYBACK_LOOP_PINGPONG
+  fps: 5
+}
+animations {
+  id: "left jump"
+  images {
+    image: "/effects/pics/character/Left Jump 1.png"
+  }
+  images {
+    image: "/effects/pics/character/Left Jump 2.png"
+  }
+  images {
+    image: "/effects/pics/character/Left Jump 3.png"
+  }
+  images {
+    image: "/effects/pics/character/Left Jump 4.png"
+  }
+  images {
+    image: "/effects/pics/character/Left Jump 5.png"
+  }
+  images {
+    image: "/effects/pics/character/Left Jump 6.png"
+  }
+  images {
+    image: "/effects/pics/character/Left Jump 7.png"
+  }
+  images {
+    image: "/effects/pics/character/Left Jump 8.png"
+  }
+  images {
+    image: "/effects/pics/character/Left Jump 9.png"
+  }
+  playback: PLAYBACK_LOOP_PINGPONG
+  fps: 5
+}
+animations {
+  id: "right"
+  images {
+    image: "/effects/pics/character/Right 1.png"
+  }
+  images {
+    image: "/effects/pics/character/Right 2.png"
+  }
+  images {
+    image: "/effects/pics/character/Right 3.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
+}
+animations {
+  id: "right jump"
+  images {
+    image: "/effects/pics/character/Right Jump 1.png"
+  }
+  images {
+    image: "/effects/pics/character/Right Jump 2.png"
+  }
+  images {
+    image: "/effects/pics/character/Right Jump 3.png"
+  }
+  images {
+    image: "/effects/pics/character/Right Jump 4.png"
+  }
+  images {
+    image: "/effects/pics/character/Right Jump 5.png"
+  }
+  images {
+    image: "/effects/pics/character/Right Jump 6.png"
+  }
+  images {
+    image: "/effects/pics/character/Right Jump 7.png"
+  }
+  images {
+    image: "/effects/pics/character/Right Jump 8.png"
+  }
+  images {
+    image: "/effects/pics/character/Right Jump 9.png"
+  }
+  playback: PLAYBACK_LOOP_PINGPONG
+  fps: 5
+}
+animations {
+  id: "shoot left"
+  images {
+    image: "/effects/pics/character/shoot left 2.png"
+  }
+  images {
+    image: "/effects/pics/character/shoot left 2.png"
+  }
+  images {
+    image: "/effects/pics/character/Left 2.png"
+  }
+  fps: 20
+}
+animations {
+  id: "shoot right"
+  images {
+    image: "/effects/pics/character/Shoot right 2.png"
+  }
+  images {
+    image: "/effects/pics/character/Shoot right 2.png"
+  }
+  images {
+    image: "/effects/pics/character/Right 2.png"
+  }
+  fps: 20
+}
+animations {
+  id: "up jump"
+  images {
+    image: "/effects/pics/character/Up Jump 1.png"
+  }
+  images {
+    image: "/effects/pics/character/Up Jump 2.png"
+  }
+  images {
+    image: "/effects/pics/character/Up Jump 3.png"
+  }
+  images {
+    image: "/effects/pics/character/Up Jump 3.png"
+  }
+  images {
+    image: "/effects/pics/character/Up Jump 3.png"
+  }
+  images {
+    image: "/effects/pics/character/Up Jump 3.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
+}
+animations {
+  id: "iceball"
+  images {
+    image: "/effects/pics/Projectiles/Iceball bullet 1.png"
+  }
+  images {
+    image: "/effects/pics/Projectiles/Iceball bullet 2.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 15
+}
+animations {
+  id: "rabbit"
+  images {
+    image: "/effects/pics/enemies sprites/rabbit 2.png"
+  }
+  images {
+    image: "/effects/pics/enemies sprites/rabbit 1 .png"
+  }
+  playback: PLAYBACK_LOOP_PINGPONG
+  fps: 4
+}
+animations {
+  id: "slug"
+  images {
+    image: "/effects/pics/enemies sprites/slug 1.png"
+  }
+  images {
+    image: "/effects/pics/enemies sprites/slug 2.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 2
+  flip_horizontal: 1
+}
+animations {
+  id: "bee"
+  images {
+    image: "/effects/pics/enemies sprites/bee 1.png"
+  }
+  images {
+    image: "/effects/pics/enemies sprites/bee 2.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 2
+  flip_horizontal: 1
+}
+extrude_borders: 2

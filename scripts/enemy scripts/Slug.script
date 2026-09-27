@@ -1,0 +1,108 @@
+-- used for the pause function
+local pause = require "scripts.pause" 
+
+local MOB_SPEED = 15   -- Speed of the mob
+local TILE_SIZE = 16   -- Size of a tile
+
+local START_POSITION = vmath.vector3()  -- Starting position of the mob
+
+
+local function calculate_patrol_distance_slug(self)
+
+	-- these will be the bounds of the patrol 
+	self.right_bound = START_POSITION.x
+	self.left_bound = START_POSITION.x
+
+	-- starting tile coordinates
+	local tile_x = math.floor(START_POSITION.x/TILE_SIZE) + 1
+	local tile_y = math.floor(START_POSITION.y/TILE_SIZE) -- no +1 so its one tile below
+
+	local is_there_ground = true
+	local direction_of_calculation = 1
+
+	while is_there_ground do
+		if 	direction_of_calculation == 1 then
+			-- right movement
+			tile_x = tile_x + 1 -- moves one tile to the rigth
+			local tile = tilemap.get_tile('/level1#level1_TM', 'ground', tile_x, tile_y) 
+
+			if tile ~= 0 then -- checks for presence of ground
+				self.right_bound = self.right_bound + TILE_SIZE -- increases the bounds
+			else
+				-- no more ground tiles
+				direction_of_calculation = -1 -- switch to left movement
+				tile_x = math.floor(START_POSITION.x/TILE_SIZE) + 1 -- reset tile_x
+			end
+		elseif direction_of_calculation == -1 then
+			-- left movement
+			tile_x = tile_x - 1 -- move one tile to the left
+			local tile = tilemap.get_tile('/level1#level1_TM', 'ground', tile_x, tile_y) 
+
+			if tile ~= 0 then
+				self.left_bound = self.left_bound - TILE_SIZE
+			else
+				-- no more ground, ends the loop
+				is_there_ground = false
+			end
+		end
+	end		
+end
+
+function on_message(self, message_id, message)
+	if message_id == hash("contact_point_response") then
+		-- Check if the mob collided with the player
+		if message.other_group == hash("character") then
+			-- Reverse the slug's velocity to simulate a bounce
+			self.velocity.x = -self.velocity.x
+			msg.post('/gui#level1_screen', 'Damage',{damage = 3})
+		end
+		-- makes the enemy take damage
+		if message.other_group == hash("bullet") then
+			self.health = self.health - 5
+		end
+	end
+end
+function init(self)
+	-- Mob position and velocity
+	self.position = go.get_position()  -- Starting position
+	START_POSITION = vmath.vector3(self.position)
+	self.velocity = vmath.vector3(MOB_SPEED, 0, 0)
+	self.direction = 1  -- 1 means right, -1 means left
+	calculate_patrol_distance_slug(self)
+	self.health = 10
+
+	pause.max_score = pause.max_score + 4 * 2 + 10
+end
+
+function update(self, dt)
+	
+	if pause.is_paused then
+		-- Skip updating the game object logic if paused
+		return
+	end
+	
+	-- movement 
+	self.position.x = self.position.x + self.velocity.x * dt
+	-- checks bounds and doesnt let the slug go over them
+	if self.position.x < self.left_bound or self.position.x > self.right_bound then 
+		if self.left_bound > self.position.x then
+			self.position.x = self.left_bound
+		elseif self.position.x > self.right_bound then 
+			self.position.x = self.right_bound
+		end
+		
+		-- changes the direction of movement
+		self.velocity.x = -self.velocity.x
+		
+	end
+	--removes the enemy from screen
+	if self.health <= 0 then
+		-- updates the score for defeating the mob
+		msg.post('/gui', 'score update',{score = 10})
+		go.delete()
+	end
+	-- flips the sprite 
+	sprite.set_hflip("#sprite", self.velocity.x < 0)
+	
+	go.set_position(self.position)
+end

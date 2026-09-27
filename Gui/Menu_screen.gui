@@ -1,0 +1,152 @@
+script: "/Gui/Menu.gui_script"
+fonts {
+  name: "new"
+  font: "/other/font/new.font"
+}
+fonts {
+  name: "num"
+  font: "/other/font/num.font"
+}
+textures {
+  name: "gamestates"
+  texture: "/effects/gamestates.atlas"
+}
+nodes {
+  position {
+    x: 480.0
+    y: 320.0
+  }
+  type: TYPE_BOX
+  texture: "gamestates/menu_screen (1)"
+  id: "background"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 881.0
+    y: 562.0
+  }
+  scale {
+    x: 0.096487
+    y: 0.101925
+  }
+  type: TYPE_BOX
+  texture: "gamestates/sound_button"
+  id: "sound"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 490.0
+    y: 80.0
+  }
+  scale {
+    x: 0.3
+    y: 0.3
+  }
+  size {
+    x: 800.0
+    y: 200.0
+  }
+  type: TYPE_TEXT
+  text: "Quit Game"
+  font: "num"
+  id: "Quit_game"
+  outline {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 490.0
+    y: 240.0
+  }
+  scale {
+    x: 0.4
+    y: 0.4
+  }
+  size {
+    x: 800.0
+    y: 200.0
+  }
+  type: TYPE_TEXT
+  text: "Play level"
+  font: "num"
+  id: "play_level"
+  outline {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 471.0
+    y: 481.0
+  }
+  scale {
+    x: 0.293589
+    y: 0.257035
+  }
+  size {
+    x: 1100.0
+    y: 500.0
+  }
+  type: TYPE_BOX
+  texture: "gamestates/Button"
+  id: "button"
+}
+nodes {
+  type: TYPE_BOX
+  texture: "gamestates/cloud"
+  id: "cloud"
+  parent: "button"
+  alpha: 0.0
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  scale {
+    x: 1.25
+    y: 1.5
+  }
+  size {
+    x: 790.0
+    y: 200.0
+  }
+  color {
+    y: 0.8
+  }
+  type: TYPE_TEXT
+  text: "Pink Cloud"
+  font: "num"
+  id: "title"
+  outline {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  parent: "cloud"
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

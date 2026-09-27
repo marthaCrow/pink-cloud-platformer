@@ -1,0 +1,50 @@
+function init(self)
+	msg.post('.', 'acquire_input_focus') -- this lets the object receive input
+	msg.post('/controller#menu_proxy', 'load') -- this loads the menu and make its the current open collection
+	self.current_collection = '#menu_proxy' -- a reference to the current collection
+	self.replaying = false
+end
+
+function final(self)
+	msg.post('.', 'release_input_focus')
+end
+
+
+
+function on_message(self, message_id, message, sender)
+	
+	-- show the collection once loaded into memory
+	if message_id == hash("proxy_loaded") then
+		msg.post(sender, "enable")
+
+	-- loads ther correct collection
+	elseif message_id == hash('play level1') then
+		-- loads the level 1
+		msg.post(self.current_collection, 'unload')
+		msg.post('#level1_proxy', 'load')
+		self.current_collection = '#level1_proxy'
+	-- restarts the same level
+	elseif message_id == hash('replay level') then
+		-- reloads the same level
+		msg.post(self.current_collection, 'unload')
+		self.replaying = true
+	-- loads the same collection
+	elseif message_id == hash('proxy_unloaded') and self.replaying then 
+		msg.post(self.current_collection, 'load')
+		self.replaying = false
+	
+	elseif message_id == hash('play game over') then
+		-- loads the game over screen
+		msg.post(self.current_collection, 'unload')
+		msg.post('#game_over_proxy', 'load')
+		self.current_collection = '#game_over_proxy'
+	elseif message_id == hash('play menu') then
+		-- loads the menu
+		
+		msg.post(self.current_collection, 'unload')
+		
+		msg.post('#menu_proxy', 'load')
+		self.current_collection = '#menu_proxy'
+	end
+end
+

@@ -1,0 +1,46 @@
+function init(self)
+	msg.post(".", "acquire_input_focus")
+	-- node shortcuts
+	self.play_level = gui.get_node('play_level')
+	self.button = gui.get_node('button')
+end
+
+function final(self)
+	msg.post(".", "release_input_focus")
+end
+
+--changes the color of a node when you hower over bit. 
+local function change_color(node,action)
+	if gui.pick_node(node, action.x, action.y) then
+		gui.set_color(node, vmath.vector4(128/255, 0, 128/255, 1)) -- changes color to purple
+	else 
+		gui.set_color(node, vmath.vector4(1, 1, 1, 1)) -- to white
+	end
+end
+
+function on_input(self, action_id, action)
+	-- if the play level is pressed the level is loaded
+	if action_id == hash('touch') and gui.pick_node(self.play_level, action.x, action.y) then
+		msg.post("main:/controller", "play level1")
+	-- exits the game
+	elseif action.pressed and gui.pick_node(gui.get_node('Quit_game'), action.x, action.y) then
+		os.exit()
+	-- mutes or unmutes the soundtrack
+	elseif action.pressed and gui.pick_node(gui.get_node('sound'), action.x, action.y) then
+		msg.post("main:/soundtrack", "sound dial")
+	
+	elseif action_id == nil then 
+		
+		change_color(self.play_level, action) -- changes color of the text
+		change_color(gui.get_node('Quit_game'), action)
+		change_color(gui.get_node('sound'), action)
+		
+		if gui.pick_node(self.button, action.x, action.y) then --This is to change box to cloud and back
+			gui.set_alpha(self.button, 0) -- makes the box invisble 
+			gui.set_alpha(gui.get_node('cloud'), 1) -- makes the cloud visible
+		else -- flips them back to the original when its is not hovered on top anymore
+			gui.set_alpha(self.button, 1)
+			gui.set_alpha(gui.get_node('cloud'), 0)
+		end 
+	end
+end

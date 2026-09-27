@@ -1,0 +1,20 @@
+name: "Game_Over"
+scale_along_z: 0
+embedded_instances {
+  id: "go"
+  data: "components {\n"
+  "  id: \"game_over\"\n"
+  "  component: \"/Gui/game_over.gui\"\n"
+  "}\n"
+  ""
+}
+embedded_instances {
+  id: "sound game over"
+  data: "embedded_components {\n"
+  "  id: \"sound\"\n"
+  "  type: \"sound\"\n"
+  "  data: \"sound: \\\"/effects/sound/game_over_sound.wav\\\"\\n"
+  "\"\n"
+  "}\n"
+  ""
+}

@@ -1,0 +1,109 @@
+-- used for the pause function
+local pause = require "scripts.pause" 
+
+-- these variables handle the cooldown
+local damage_cooldown = 1.0  -- Time in seconds between allowed damage applications
+local damage_timer = 0 
+
+local function health_update(self)
+	-- caps the health at 20
+	if self.health > 20 then
+		self.health = 20 
+	end
+
+	-- updates the health
+	gui.set_text(self.health_node, self.health)
+
+	-- changes the color for a short while
+	local original_color = gui.get_color(self.health_node)
+	gui.set_color(self.health_node, vmath.vector4(0.2, 0.4, 0.4, 1) )
+	timer.delay(0.5, false, function()
+		gui.set_color(self.health_node, original_color)
+	end)
+	
+	-- checks if the character is dead 
+	if self.health <= 0 then
+		-- runs the gameover screen and sound effect
+		timer.delay(0.5, false, function()
+			msg.post("main:/soundtrack", 'short mute',{mute_time = 8})
+			msg.post("main:/controller", "play game over")
+		end)
+	end
+end
+
+-- this function updates the score
+local function update_score(self)
+	gui.set_text(self.score_node, 'Score ' .. self.score)
+end
+
+function init(self)
+	-- the stats shown on the screen
+	self.score = 0
+	self.health = 20
+	self.progress = 0
+	
+	-- for hanling the score update for progress
+	self.progress_checkpoint = 0
+	
+	-- node shortcuts 
+	self.health_node = gui.get_node('health_node')
+	self.progress_node = gui.get_node('progress_node')
+	self.score_node = gui.get_node('score_node')
+	
+	-- to make the seed random 
+	math.randomseed(os.time())
+	health_update(self)
+end
+
+function on_message(self, message_id, message, sender)
+	-- handles the health power up
+	if message_id == hash("health power up") then
+		--updating health randomly from 3 to 10 points
+		self.health = self.health + math.random(3,10)
+		health_update(self)
+	end
+	-- when the character gets damaged 
+	if message_id == hash('Damage')then
+		if damage_timer <= 0 then
+			--taking damage from the mob 
+			self.health = self.health - message.damage
+			health_update(self)
+			damage_timer = damage_cooldown -- Reset the timer
+			-- handles score
+			self.score = self.score - 3
+			update_score(self)
+		end
+	end
+	-- handles the progress 
+	if message_id == hash('update progress') then
+		self.progress = message.progress
+		-- sets the new progress
+		gui.set_text(self.progress_node, self.progress .. '%')
+		-- handles the score update for progressing 5% of the map
+		if self.progress >= (self.progress_checkpoint + 5) then
+			--adds to the score 5 points
+			self.score = self.score + 5
+			-- the checkpoint at which the score is achieved is updated
+			self.progress_checkpoint = self.progress_checkpoint + 5
+			update_score(self)
+		end
+	end
+	-- updates the score
+	if message_id == hash('score update') then
+		self.score = self.score + message.score
+		update_score(self)
+	end
+	-- sends data to the level complete screen so they can show the score and grade
+	if message_id == hash('send data to lcs')then
+		msg.post('/level_completion screen', 'receive data',{score = self.score})
+	end
+end
+
+function update(self,dt)
+	if pause.is_paused then
+		-- Skip updating the game object logic if paused
+		return
+	end
+	-- calculates the cooldown time
+	damage_timer = damage_timer - dt
+end

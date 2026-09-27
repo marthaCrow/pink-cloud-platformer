@@ -1,0 +1,25 @@
+images {
+  image: "/effects/pics/menu_screen (1).png"
+}
+images {
+  image: "/effects/pics/play_level.png"
+}
+images {
+  image: "/effects/pics/quit_level_button.png"
+}
+images {
+  image: "/effects/pics/sound_button.png"
+}
+images {
+  image: "/effects/pics/two_mode_button.png"
+}
+images {
+  image: "/effects/pics/Button.png"
+}
+images {
+  image: "/effects/pics/cloud.png"
+}
+images {
+  image: "/effects/pics/frame.png"
+}
+extrude_borders: 2

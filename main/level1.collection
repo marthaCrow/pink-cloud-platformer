@@ -1,0 +1,424 @@
+name: "level1"
+instances {
+  id: "Jet"
+  prototype: "/Game_Objects/Jet.go"
+  position {
+    x: 224.0
+    y: 74.0
+  }
+}
+instances {
+  id: "Jet1"
+  prototype: "/Game_Objects/Jet.go"
+  position {
+    x: 715.0
+    y: 197.0
+  }
+}
+instances {
+  id: "Bee"
+  prototype: "/Game_Objects/Bee.go"
+  position {
+    x: 265.0
+    y: 122.0
+  }
+}
+instances {
+  id: "Bee1"
+  prototype: "/Game_Objects/Bee.go"
+  position {
+    x: 432.0
+    y: 175.0
+  }
+}
+instances {
+  id: "Bee2"
+  prototype: "/Game_Objects/Bee.go"
+  position {
+    x: 492.0
+    y: 217.0
+  }
+}
+instances {
+  id: "Bee3"
+  prototype: "/Game_Objects/Bee.go"
+  position {
+    x: 662.0
+    y: 225.0
+  }
+}
+instances {
+  id: "Bee4"
+  prototype: "/Game_Objects/Bee.go"
+  position {
+    x: 1049.0
+    y: 265.0
+  }
+}
+instances {
+  id: "Bee5"
+  prototype: "/Game_Objects/Bee.go"
+  position {
+    x: 875.0
+    y: 249.0
+  }
+}
+instances {
+  id: "Slug"
+  prototype: "/Game_Objects/Slug.go"
+  position {
+    x: 727.0
+    y: 168.0
+  }
+}
+instances {
+  id: "Slug1"
+  prototype: "/Game_Objects/Slug.go"
+  position {
+    x: 90.0
+    y: 103.0
+  }
+}
+instances {
+  id: "Slug2"
+  prototype: "/Game_Objects/Slug.go"
+  position {
+    x: 167.0
+    y: 104.0
+  }
+}
+instances {
+  id: "Slug3"
+  prototype: "/Game_Objects/Slug.go"
+  position {
+    x: 593.0
+    y: 232.0
+  }
+}
+instances {
+  id: "Slug4"
+  prototype: "/Game_Objects/Slug.go"
+  position {
+    x: 316.0
+    y: 104.0
+  }
+}
+instances {
+  id: "Slug5"
+  prototype: "/Game_Objects/Slug.go"
+  position {
+    x: 794.0
+    y: 200.0
+  }
+}
+instances {
+  id: "Slug6"
+  prototype: "/Game_Objects/Slug.go"
+  position {
+    x: 1083.0
+    y: 152.0
+  }
+}
+scale_along_z: 0
+embedded_instances {
+  id: "level1"
+  children: "bees"
+  children: "jets"
+  children: "slugs"
+  data: "components {\n"
+  "  id: \"level1_TM\"\n"
+  "  component: \"/TIle/level1.tilemap\"\n"
+  "}\n"
+  "components {\n"
+  "  id: \"level1_S\"\n"
+  "  component: \"/scripts/level1.script\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"ground\"\n"
+  "  type: \"collisionobject\"\n"
+  "  data: \"collision_shape: \\\"/TIle/level1.tilemap\\\"\\n"
+  "type: COLLISION_OBJECT_TYPE_STATIC\\n"
+  "mass: 0.0\\n"
+  "friction: 0.1\\n"
+  "restitution: 0.5\\n"
+  "group: \\\"ground,portal\\\"\\n"
+  "mask: \\\"character\\\"\\n"
+  "mask: \\\"rabbit\\\"\\n"
+  "mask: \\\"bee\\\"\\n"
+  "mask: \\\"jet\\\"\\n"
+  "mask: \\\"bullet\\\"\\n"
+  "\"\n"
+  "}\n"
+  ""
+}
+embedded_instances {
+  id: "character"
+  children: "operator"
+  data: "components {\n"
+  "  id: \"character\"\n"
+  "  component: \"/scripts/character.script\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"sprite\"\n"
+  "  type: \"sprite\"\n"
+  "  data: \"default_animation: \\\"idle\\\"\\n"
+  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "textures {\\n"
+  "  sampler: \\\"texture_sampler\\\"\\n"
+  "  texture: \\\"/effects/character.atlas\\\"\\n"
+  "}\\n"
+  "\"\n"
+  "  scale {\n"
+  "    x: 0.1\n"
+  "    y: 0.1\n"
+  "  }\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"charCO\"\n"
+  "  type: \"collisionobject\"\n"
+  "  data: \"type: COLLISION_OBJECT_TYPE_KINEMATIC\\n"
+  "mass: 0.0\\n"
+  "friction: 0.1\\n"
+  "restitution: 0.5\\n"
+  "group: \\\"character\\\"\\n"
+  "mask: \\\"ground\\\"\\n"
+  "mask: \\\"Mob\\\"\\n"
+  "mask: \\\"portal\\\"\\n"
+  "embedded_collision_shape {\\n"
+  "  shapes {\\n"
+  "    shape_type: TYPE_BOX\\n"
+  "    position {\\n"
+  "      y: -4.0\\n"
+  "    }\\n"
+  "    rotation {\\n"
+  "    }\\n"
+  "    index: 0\\n"
+  "    count: 3\\n"
+  "  }\\n"
+  "  data: 6.7403555\\n"
+  "  data: 8.0\\n"
+  "  data: 10.0\\n"
+  "}\\n"
+  "\"\n"
+  "}\n"
+  ""
+  position {
+    x: 63.0
+    y: 99.0
+    z: 1.0
+  }
+}
+embedded_instances {
+  id: "operator"
+  data: "embedded_components {\n"
+  "  id: \"camera\"\n"
+  "  type: \"camera\"\n"
+  "  data: \"aspect_ratio: 1.0\\n"
+  "fov: 0.7854\\n"
+  "near_z: 0.1\\n"
+  "far_z: 1000.0\\n"
+  "auto_aspect_ratio: 1\\n"
+  "orthographic_zoom: 3.0\\n"
+  "\"\n"
+  "}\n"
+  ""
+  position {
+    x: 58.0
+    y: 29.0
+    z: 213.33333
+  }
+}
+embedded_instances {
+  id: "gui"
+  data: "components {\n"
+  "  id: \"level1_screen\"\n"
+  "  component: \"/Gui/level1_screen.gui\"\n"
+  "}\n"
+  ""
+}
+embedded_instances {
+  id: "bullet"
+  data: "components {\n"
+  "  id: \"bullet\"\n"
+  "  component: \"/scripts/bullet.script\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"collisionobject\"\n"
+  "  type: \"collisionobject\"\n"
+  "  data: \"type: COLLISION_OBJECT_TYPE_KINEMATIC\\n"
+  "mass: 0.0\\n"
+  "friction: 0.1\\n"
+  "restitution: 0.5\\n"
+  "group: \\\"bullet\\\"\\n"
+  "mask: \\\"Mob\\\"\\n"
+  "mask: \\\"ground\\\"\\n"
+  "embedded_collision_shape {\\n"
+  "  shapes {\\n"
+  "    shape_type: TYPE_BOX\\n"
+  "    position {\\n"
+  "    }\\n"
+  "    rotation {\\n"
+  "    }\\n"
+  "    index: 0\\n"
+  "    count: 3\\n"
+  "  }\\n"
+  "  data: 13.055362\\n"
+  "  data: 5.0797596\\n"
+  "  data: 10.0\\n"
+  "}\\n"
+  "\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"sprite\"\n"
+  "  type: \"sprite\"\n"
+  "  data: \"default_animation: \\\"iceball\\\"\\n"
+  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "size {\\n"
+  "  x: 32.0\\n"
+  "  y: 32.0\\n"
+  "}\\n"
+  "textures {\\n"
+  "  sampler: \\\"texture_sampler\\\"\\n"
+  "  texture: \\\"/effects/character.atlas\\\"\\n"
+  "}\\n"
+  "\"\n"
+  "}\n"
+  ""
+  position {
+    x: -59.0
+    y: -43.0
+  }
+  scale3 {
+    x: 0.3
+    y: 0.3
+  }
+}
+embedded_instances {
+  id: "pause_screen"
+  data: "components {\n"
+  "  id: \"pause_state\"\n"
+  "  component: \"/Gui/pause_state.gui\"\n"
+  "}\n"
+  ""
+  position {
+    x: 16.0
+    y: -1189.0
+  }
+}
+embedded_instances {
+  id: "controls"
+  data: "embedded_components {\n"
+  "  id: \"label\"\n"
+  "  type: \"label\"\n"
+  "  data: \"size {\\n"
+  "  x: 128.0\\n"
+  "  y: 32.0\\n"
+  "}\\n"
+  "shadow {\\n"
+  "  x: 1.0\\n"
+  "  y: 1.0\\n"
+  "  z: 1.0\\n"
+  "}\\n"
+  "text: \\\"space - pause\\\\n"
+  "\\\"\\n"
+  "  \\\"W - jump\\\\n"
+  "\\\"\\n"
+  "  \\\"A - left\\\\n"
+  "\\\"\\n"
+  "  \\\"D - right\\\\n"
+  "\\\"\\n"
+  "  \\\"L - shoot\\\"\\n"
+  "font: \\\"/other/font/num.font\\\"\\n"
+  "material: \\\"/builtins/fonts/label.material\\\"\\n"
+  "\"\n"
+  "  position {\n"
+  "    x: 28.0\n"
+  "    y: 113.0\n"
+  "  }\n"
+  "  scale {\n"
+  "    x: 0.05\n"
+  "    y: 0.05\n"
+  "  }\n"
+  "}\n"
+  ""
+}
+embedded_instances {
+  id: "level_completion screen"
+  data: "components {\n"
+  "  id: \"level_complete\"\n"
+  "  component: \"/Gui/level_complete.gui\"\n"
+  "}\n"
+  ""
+  position {
+    x: 1347.0
+    y: -1055.0
+  }
+}
+embedded_instances {
+  id: "jets"
+  children: "Jet"
+  children: "Jet1"
+  data: ""
+  position {
+    z: 0.5
+  }
+}
+embedded_instances {
+  id: "bees"
+  children: "Bee"
+  children: "Bee1"
+  children: "Bee2"
+  children: "Bee3"
+  children: "Bee4"
+  children: "Bee5"
+  data: ""
+}
+embedded_instances {
+  id: "slugs"
+  children: "Slug"
+  children: "Slug1"
+  children: "Slug2"
+  children: "Slug3"
+  children: "Slug4"
+  children: "Slug5"
+  children: "Slug6"
+  data: ""
+}
+embedded_instances {
+  id: "sound_effects"
+  data: "embedded_components {\n"
+  "  id: \"level complete\"\n"
+  "  type: \"sound\"\n"
+  "  data: \"sound: \\\"/effects/sound/completelevel-2.wav\\\"\\n"
+  "\"\n"
+  "}\n"
+  ""
+}
+embedded_instances {
+  id: "level2"
+  data: "components {\n"
+  "  id: \"level1\"\n"
+  "  component: \"/scripts/level1.script\"\n"
+  "}\n"
+  "components {\n"
+  "  id: \"level2\"\n"
+  "  component: \"/TIle/level2.tilemap\"\n"
+  "}\n"
+  "embedded_components {\n"
+  "  id: \"ground\"\n"
+  "  type: \"collisionobject\"\n"
+  "  data: \"collision_shape: \\\"/TIle/level2.tilemap\\\"\\n"
+  "type: COLLISION_OBJECT_TYPE_STATIC\\n"
+  "mass: 0.0\\n"
+  "friction: 0.1\\n"
+  "restitution: 0.5\\n"
+  "group: \\\"ground,portal\\\"\\n"
+  "mask: \\\"character\\\"\\n"
+  "mask: \\\"rabbit\\\"\\n"
+  "mask: \\\"bee\\\"\\n"
+  "mask: \\\"jet\\\"\\n"
+  "mask: \\\"bullet\\\"\\n"
+  "\"\n"
+  "}\n"
+  ""
+}

@@ -1,0 +1,21 @@
+function init(self)
+	-- changes background colour to black
+	msg.post("@render:", "clear_color", { color = vmath.vector4(0, 0, 0, 1) } )
+	-- changes the window view to the riginal one
+	msg.post("@render:", "use_fixed_projection")
+	-- can receive input
+	msg.post('.', 'acquire_input_focus')
+	sound.play('/sound game over#sound')
+end
+
+function on_input(self, action_id, action)
+	-- restarts the game
+	if action_id == hash('touch') and gui.pick_node(gui.get_node('restart'), action.x, action.y) then
+		msg.post("main:/controller", 'play level1')
+
+	-- plays the menu
+	elseif action_id == hash('touch') and gui.pick_node(gui.get_node('menu'), action.x, action.y) then
+		msg.post("main:/controller", 'play menu')
+	end
+end
+

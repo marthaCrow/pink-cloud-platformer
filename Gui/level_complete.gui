@@ -1,0 +1,240 @@
+script: "/Gui/level_complete_screen.gui_script"
+fonts {
+  name: "num"
+  font: "/other/font/num.font"
+}
+textures {
+  name: "gamestates"
+  texture: "/effects/gamestates.atlas"
+}
+textures {
+  name: "character"
+  texture: "/effects/character.atlas"
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  font: "num"
+  id: "root"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 480.0
+    y: 320.0
+  }
+  size {
+    x: 960.0
+    y: 640.0
+  }
+  color {
+    x: 0.702
+    y: 0.8
+  }
+  type: TYPE_BOX
+  id: "box"
+  parent: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 480.0
+    y: 123.0
+  }
+  scale {
+    x: 0.4
+    y: 0.4
+  }
+  size {
+    x: 500.0
+    y: 130.0
+  }
+  type: TYPE_TEXT
+  text: "replay"
+  font: "num"
+  id: "replay"
+  parent: "root"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 480.0
+    y: 279.0
+  }
+  scale {
+    x: 0.4
+    y: 0.4
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "score : 100"
+  font: "num"
+  id: "score"
+  parent: "root"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 480.0
+    y: 128.0
+  }
+  scale {
+    x: 4.96087
+    y: 2.487477
+  }
+  type: TYPE_BOX
+  texture: "gamestates/frame"
+  id: "box1"
+  parent: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 480.0
+    y: 194.0
+  }
+  scale {
+    x: 0.4
+    y: 0.4
+  }
+  size {
+    x: 700.0
+    y: 120.0
+  }
+  type: TYPE_TEXT
+  text: "next level"
+  font: "num"
+  id: "next level"
+  parent: "root"
+  inherit_alpha: true
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  font: "num"
+  id: "graphics"
+  parent: "root"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 93.0
+    y: 152.0
+  }
+  scale {
+    x: 7.0
+    y: 7.0
+  }
+  type: TYPE_BOX
+  texture: "character/rabbit"
+  id: "rabbbit"
+  parent: "graphics"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 631.0
+    y: 55.0
+  }
+  scale {
+    x: 6.0
+    y: 6.0
+  }
+  type: TYPE_BOX
+  texture: "character/slug"
+  id: "slug"
+  parent: "graphics"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 839.0
+    y: 345.0
+  }
+  scale {
+    x: 10.0
+    y: 10.0
+  }
+  type: TYPE_BOX
+  texture: "character/bee"
+  id: "bee"
+  parent: "graphics"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 480.0
+    y: 374.0
+  }
+  scale {
+    x: 0.6
+    y: 0.6
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "grade : A"
+  font: "num"
+  id: "grade"
+  parent: "root"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 480.0
+    y: 479.0
+  }
+  scale {
+    x: 0.75
+    y: 0.75
+  }
+  size {
+    x: 200.0
+    y: 100.0
+    z: 0.1
+  }
+  type: TYPE_TEXT
+  text: "Level Completed!"
+  font: "num"
+  id: "text"
+  parent: "root"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 480.0
+    y: 55.0
+  }
+  scale {
+    x: 0.4
+    y: 0.4
+  }
+  size {
+    x: 400.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "menu"
+  font: "num"
+  id: "menu"
+  parent: "root"
+  inherit_alpha: true
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

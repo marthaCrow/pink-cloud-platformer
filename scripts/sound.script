@@ -1,0 +1,30 @@
+function init(self)
+	msg.post('.', 'acquire_input_focus')
+	self.sound = true
+	sound.play('/soundtrack#sound')
+end
+
+function final(self)
+	msg.post("/soundtrack#sound", "release_input_focus")
+	go.delete()
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash('sound dial') then 
+		self.sound = not self.sound
+		
+		if self.sound then
+			sound.set_gain('/soundtrack#sound',1)
+		else  
+			sound.set_gain('/soundtrack#sound',0)
+		end
+	end
+	-- mutes the soundtrack for a specified time
+	if message_id == hash('short mute') then 
+		sound.set_gain('/soundtrack#sound', 0)
+		timer.delay(message.mute_time, false, function()
+			sound.set_gain('/soundtrack#sound',1)
+		end)
+	end
+
+end
